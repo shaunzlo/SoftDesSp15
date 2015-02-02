@@ -81,20 +81,18 @@ def rest_of_ORF(dna):
     >>> rest_of_ORF("ATGAGATAGG")
     'ATGAGA'
     """
-    stop = False
-    j = len(dna)
+    j = len(dna)/3
     i = 0
-    data = ""
-    while (stop == False and i<j):
-        if (dna[i] == 'T' and dna[i+1] == 'A' and dna[i+2] == 'G') or (dna[i] == 'T' and dna[i+1] == 'A' and dna[i+2] == 'A') or (dna[i] == 'T' and dna[i+1] == 'G' and dna[i+2] == 'A'):
-            if (i > 2):
-                stop = True
-            else:
-                data += dna[i]
-                i += 1
-        else:
-            data += dna[i]
-            i += 1
+    stop = ''
+    data = ''
+    while (1):
+        stop = dna[i*3:3*i+3]
+        if (stop == 'TAG' or stop == 'TAA' or stop == 'TGA'):
+            break
+        data += stop
+        i += 1
+        if(i > j):
+            return dna
     return data
     pass
 
@@ -137,6 +135,12 @@ def find_all_ORFs(dna):
     ['ATGCATGAATGTAG', 'ATGAATGTAG', 'ATG']
     """
 
+    data = []
+    data += find_all_ORFs_oneframe(dna)
+    data += find_all_ORFs_oneframe(dna[1:])
+    data += find_all_ORFs_oneframe(dna[2:])
+
+    return data
 
     pass
 
