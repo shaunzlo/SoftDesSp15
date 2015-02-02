@@ -2,7 +2,7 @@
 """
 Created on Sun Feb  2 11:24:42 2014
 
-@author: YOUR NAME HERE
+@author: Ong Zi Liang
 
 """
 
@@ -29,6 +29,16 @@ def get_complement(nucleotide):
     >>> get_complement('C')
     'G'
     """
+
+    if nucleotide == 'A':
+        return 'T'
+    if nucleotide == 'C':
+        return 'G'
+    if nucleotide == 'T':
+        return 'A'
+    if nucleotide == 'G':
+        return 'C'
+
     # TODO: implement this
     pass
 
@@ -43,6 +53,19 @@ def get_reverse_complement(dna):
     >>> get_reverse_complement("CCGCGTTCA")
     'TGAACGCGG'
     """
+
+    def get_reverse_complement(dna):
+    i = 0
+    j = len(dna)
+    data = ""
+
+    while j > 0:
+        i += 1
+        data += dna[j-1]
+        j -= 1
+
+    return data
+
     # TODO: implement this
     pass
 
@@ -58,7 +81,21 @@ def rest_of_ORF(dna):
     >>> rest_of_ORF("ATGAGATAGG")
     'ATGAGA'
     """
-    # TODO: implement this
+    stop = False
+    j = len(dna)
+    i = 0
+    data = ""
+    while (stop == False and i<j):
+        if (dna[i] == 'T' and dna[i+1] == 'A' and dna[i+2] == 'G') or (dna[i] == 'T' and dna[i+1] == 'A' and dna[i+2] == 'A') or (dna[i] == 'T' and dna[i+1] == 'G' and dna[i+2] == 'A'):
+            if (i > 2):
+                stop = True
+            else:
+                data += dna[i]
+                i += 1
+        else:
+            data += dna[i]
+            i += 1
+    return data
     pass
 
 def find_all_ORFs_oneframe(dna):
@@ -73,7 +110,18 @@ def find_all_ORFs_oneframe(dna):
     >>> find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCC")
     ['ATGCATGAATGTAGA', 'ATGTGCCC']
     """
-    # TODO: implement this
+    start = ''
+    i = 0
+    data = []
+    j = len(dna)/3
+    while(i<j):
+        start = dna[i*3:3*i+3]
+        if start == 'ATG':
+            data.append(rest_of_ORF(dna[3*i:]))
+            k = len(rest_of_ORF(dna))/3
+            i += k
+        i += 1
+    return data
     pass
 
 def find_all_ORFs(dna):
@@ -88,7 +136,8 @@ def find_all_ORFs(dna):
     >>> find_all_ORFs("ATGCATGAATGTAG")
     ['ATGCATGAATGTAG', 'ATGAATGTAG', 'ATG']
     """
-    # TODO: implement this
+
+
     pass
 
 def find_all_ORFs_both_strands(dna):
