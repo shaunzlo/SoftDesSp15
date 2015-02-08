@@ -78,13 +78,13 @@ def rest_of_ORF(dna):
     """
     j = len(dna)/3
     i = 0
-    stop = ''
+    stop_condon = ''
     data = ''
     while (1):
-        stop = dna[i*3:3*i+3]
-        if (stop == 'TAG' or stop == 'TAA' or stop == 'TGA'):
+        stop_condon = dna[i*3:3*i+3]
+        if (stop_condon == 'TAG' or stop_condon == 'TAA' or stop_condon == 'TGA'):
             break
-        data += stop
+        data += stop_condon
         i += 1
         if(i > j):
             return dna
@@ -101,14 +101,17 @@ def find_all_ORFs_oneframe(dna):
         returns: a list of non-nested ORFs
     >>> find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCC")
     ['ATGCATGAATGTAGA', 'ATGTGCCC']
+
+    >>> find_all_ORFs_oneframe("ATGAGATGTGAACATTAGATGCCGTG")
+    ['ATGAGATGTGAACAT', 'ATGCCGTG']
     """
-    start = ''
+    start_condon = ''
     i = 0
     data = []
     j = len(dna)/3
     while(i<j):
-        start = dna[i*3:3*i+3]
-        if start == 'ATG':
+        start_condon = dna[i*3:3*i+3]
+        if start_condon == 'ATG':
             data.append(rest_of_ORF(dna[3*i:]))
             k = len(rest_of_ORF(dna))/3
             i += k
@@ -126,6 +129,7 @@ def find_all_ORFs(dna):
     >>> find_all_ORFs("ATGCATGAATGTAG")
     ['ATGCATGAATGTAG', 'ATGAATGTAG', 'ATG']
     """
+
     data = []
     data += find_all_ORFs_oneframe(dna)
     data += find_all_ORFs_oneframe(dna[1:])
@@ -164,7 +168,6 @@ def longest_ORF(dna):
             temp = data[i]
             y = len(data[i]) 
     return temp
-    pass
 
 def longest_ORF_noncoding(dna, num_trials):
     """ Computes the maximum length of the longest ORF over num_trials shuffles
@@ -186,9 +189,6 @@ def longest_ORF_noncoding(dna, num_trials):
             temp = data[i]
             y = len(data[i]) 
     return len(temp)
-    pass
-
-#print longest_ORF_noncoding("ATGCGAATGTAGCATCAAA", 5)
 
 def coding_strand_to_AA(dna):
     """ Computes the Protein encoded by a sequence of DNA.  This function
