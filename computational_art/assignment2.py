@@ -1,9 +1,10 @@
-""" TODO: Put your header comment here """
+""" COMPUTATIONAL ART MINI PROJECT
+    NAME: ZI LIANG, ONG 
+"""
 
 import random
 from math import pi, sin, cos
 from PIL import Image
-
 
 def build_random_function(min_depth, max_depth):
     """ Builds a random function of depth at least min_depth and depth
