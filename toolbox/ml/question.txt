@@ -1,0 +1,15 @@
+1.What is the general trend in the curve?
+
+The curve has sharp drop and steep increase thoughout the percentage of data.
+
+2.Are there parts of the curve that appear to be noisier than others?  Why?
+
+No, even after running the code several times, there is no noise. 
+
+3.How many trials do you need to get a smooth curve?
+
+At least 300 trials but the curve is not very smooth and takes a very long.
+
+4.Try different values for C (by changing LogisticRegression(C=10**-10)).  What happens?  If you want to know why this happens, see this Wikipedia page as well as the documentation for LogisticRegression in scikit-learn.
+
+The graph changes from increasing to decreasing as -10 increase to positive number.
